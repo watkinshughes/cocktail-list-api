@@ -1,9 +1,105 @@
-input createPostInput {
-  data: PostInput
+type Cocktail {
+  _id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  glass: String
+  category: String
+  garnish: String
+  preparation: String
+  ingredients: String!
+  image: UploadFile
 }
 
-type createPostPayload {
-  post: Post
+type CocktailAggregator {
+  count: Int
+}
+
+type CocktailConnection {
+  values: [Cocktail]
+  groupBy: CocktailGroupBy
+  aggregate: CocktailAggregator
+}
+
+type CocktailConnection_id {
+  key: ID
+  connection: CocktailConnection
+}
+
+type CocktailConnectionCategory {
+  key: String
+  connection: CocktailConnection
+}
+
+type CocktailConnectionCreatedAt {
+  key: DateTime
+  connection: CocktailConnection
+}
+
+type CocktailConnectionGarnish {
+  key: String
+  connection: CocktailConnection
+}
+
+type CocktailConnectionGlass {
+  key: String
+  connection: CocktailConnection
+}
+
+type CocktailConnectionImage {
+  key: ID
+  connection: CocktailConnection
+}
+
+type CocktailConnectionIngredients {
+  key: String
+  connection: CocktailConnection
+}
+
+type CocktailConnectionName {
+  key: String
+  connection: CocktailConnection
+}
+
+type CocktailConnectionPreparation {
+  key: String
+  connection: CocktailConnection
+}
+
+type CocktailConnectionUpdatedAt {
+  key: DateTime
+  connection: CocktailConnection
+}
+
+type CocktailGroupBy {
+  _id: [CocktailConnection_id]
+  createdAt: [CocktailConnectionCreatedAt]
+  updatedAt: [CocktailConnectionUpdatedAt]
+  name: [CocktailConnectionName]
+  glass: [CocktailConnectionGlass]
+  category: [CocktailConnectionCategory]
+  garnish: [CocktailConnectionGarnish]
+  preparation: [CocktailConnectionPreparation]
+  ingredients: [CocktailConnectionIngredients]
+  image: [CocktailConnectionImage]
+}
+
+input CocktailInput {
+  name: String!
+  glass: String
+  category: String
+  garnish: String
+  preparation: String
+  ingredients: String!
+  image: ID
+}
+
+input createCocktailInput {
+  data: CocktailInput
+}
+
+type createCocktailPayload {
+  cocktail: Cocktail
 }
 
 input createRoleInput {
@@ -12,14 +108,6 @@ input createRoleInput {
 
 type createRolePayload {
   role: UsersPermissionsRole
-}
-
-input createTagInput {
-  data: TagInput
-}
-
-type createTagPayload {
-  tag: Tag
 }
 
 input createUserInput {
@@ -35,12 +123,12 @@ The `DateTime` scalar represents a date and time following the ISO 8601 standard
 """
 scalar DateTime
 
-input deletePostInput {
+input deleteCocktailInput {
   where: InputID
 }
 
-type deletePostPayload {
-  post: Post
+type deleteCocktailPayload {
+  cocktail: Cocktail
 }
 
 input deleteRoleInput {
@@ -49,14 +137,6 @@ input deleteRoleInput {
 
 type deleteRolePayload {
   role: UsersPermissionsRole
-}
-
-input deleteTagInput {
-  where: InputID
-}
-
-type deleteTagPayload {
-  tag: Tag
 }
 
 input deleteUserInput {
@@ -89,15 +169,12 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Post | createPostPayload | updatePostPayload | deletePostPayload | PostConnection | PostAggregator | PostGroupBy | PostConnection_id | PostConnectionCreatedAt | PostConnectionUpdatedAt | PostConnectionTitle | PostConnectionContent | PostConnectionCover | Tag | createTagPayload | updateTagPayload | deleteTagPayload | TagConnection | TagAggregator | TagGroupBy | TagConnection_id | TagConnectionCreatedAt | TagConnectionUpdatedAt | TagConnectionName | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | Cocktail | createCocktailPayload | updateCocktailPayload | deleteCocktailPayload | CocktailConnection | CocktailAggregator | CocktailGroupBy | CocktailConnection_id | CocktailConnectionCreatedAt | CocktailConnectionUpdatedAt | CocktailConnectionName | CocktailConnectionGlass | CocktailConnectionCategory | CocktailConnectionGarnish | CocktailConnectionPreparation | CocktailConnectionIngredients | CocktailConnectionImage | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileGroupBy | UploadFileConnection_id | UploadFileConnectionCreatedAt | UploadFileConnectionUpdatedAt | UploadFileConnectionName | UploadFileConnectionHash | UploadFileConnectionSha256 | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionProvider | UploadFileConnectionPublic_id | UsersPermissionsPermission | UsersPermissionsRole | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnection_id | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | UsersPermissionsUser | createUserPayload | updateUserPayload | deleteUserPayload | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnection_id | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole
 
 type Mutation {
-  createPost(input: createPostInput): createPostPayload
-  updatePost(input: updatePostInput): updatePostPayload
-  deletePost(input: deletePostInput): deletePostPayload
-  createTag(input: createTagInput): createTagPayload
-  updateTag(input: updateTagInput): updateTagPayload
-  deleteTag(input: deleteTagInput): deleteTagPayload
+  createCocktail(input: createCocktailInput): createCocktailPayload
+  updateCocktail(input: updateCocktailInput): updateCocktailPayload
+  deleteCocktail(input: deleteCocktailInput): deleteCocktailPayload
 
   """Create a new role"""
   createRole(input: createRoleInput): createRolePayload
@@ -113,79 +190,10 @@ type Mutation {
   upload(refId: ID, ref: String, source: String, file: Upload!): UploadFile!
 }
 
-type Post {
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  title: String
-  content: String
-  cover: UploadFile
-  tags(sort: String, limit: Int, start: Int, where: JSON): [Tag]
-}
-
-type PostAggregator {
-  count: Int
-}
-
-type PostConnection {
-  values: [Post]
-  groupBy: PostGroupBy
-  aggregate: PostAggregator
-}
-
-type PostConnection_id {
-  key: ID
-  connection: PostConnection
-}
-
-type PostConnectionContent {
-  key: String
-  connection: PostConnection
-}
-
-type PostConnectionCover {
-  key: ID
-  connection: PostConnection
-}
-
-type PostConnectionCreatedAt {
-  key: DateTime
-  connection: PostConnection
-}
-
-type PostConnectionTitle {
-  key: String
-  connection: PostConnection
-}
-
-type PostConnectionUpdatedAt {
-  key: DateTime
-  connection: PostConnection
-}
-
-type PostGroupBy {
-  _id: [PostConnection_id]
-  createdAt: [PostConnectionCreatedAt]
-  updatedAt: [PostConnectionUpdatedAt]
-  title: [PostConnectionTitle]
-  content: [PostConnectionContent]
-  cover: [PostConnectionCover]
-}
-
-input PostInput {
-  title: String
-  content: String
-  cover: ID
-  tags: [ID]
-}
-
 type Query {
-  post(id: ID!): Post
-  posts(sort: String, limit: Int, start: Int, where: JSON): [Post]
-  postsConnection(sort: String, limit: Int, start: Int, where: JSON): PostConnection
-  tag(id: ID!): Tag
-  tags(sort: String, limit: Int, start: Int, where: JSON): [Tag]
-  tagsConnection(sort: String, limit: Int, start: Int, where: JSON): TagConnection
+  cocktail(id: ID!): Cocktail
+  cocktails(sort: String, limit: Int, start: Int, where: JSON): [Cocktail]
+  cocktailsConnection(sort: String, limit: Int, start: Int, where: JSON): CocktailConnection
   files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
   filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
   role(id: ID!): UsersPermissionsRole
@@ -209,63 +217,13 @@ input RoleInput {
   users: [ID]
 }
 
-type Tag {
-  _id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String
-  posts(sort: String, limit: Int, start: Int, where: JSON): [Post]
-}
-
-type TagAggregator {
-  count: Int
-}
-
-type TagConnection {
-  values: [Tag]
-  groupBy: TagGroupBy
-  aggregate: TagAggregator
-}
-
-type TagConnection_id {
-  key: ID
-  connection: TagConnection
-}
-
-type TagConnectionCreatedAt {
-  key: DateTime
-  connection: TagConnection
-}
-
-type TagConnectionName {
-  key: String
-  connection: TagConnection
-}
-
-type TagConnectionUpdatedAt {
-  key: DateTime
-  connection: TagConnection
-}
-
-type TagGroupBy {
-  _id: [TagConnection_id]
-  createdAt: [TagConnectionCreatedAt]
-  updatedAt: [TagConnectionUpdatedAt]
-  name: [TagConnectionName]
-}
-
-input TagInput {
-  name: String
-  posts: [ID]
-}
-
-input updatePostInput {
+input updateCocktailInput {
   where: InputID
-  data: PostInput
+  data: CocktailInput
 }
 
-type updatePostPayload {
-  post: Post
+type updateCocktailPayload {
+  cocktail: Cocktail
 }
 
 input updateRoleInput {
@@ -275,15 +233,6 @@ input updateRoleInput {
 
 type updateRolePayload {
   role: UsersPermissionsRole
-}
-
-input updateTagInput {
-  where: InputID
-  data: TagInput
-}
-
-type updateTagPayload {
-  tag: Tag
 }
 
 input updateUserInput {

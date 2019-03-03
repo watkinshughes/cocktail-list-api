@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Tag.js service
+ * Cocktail.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -12,21 +12,21 @@ const _ = require('lodash');
 module.exports = {
 
   /**
-   * Promise to fetch all tags.
+   * Promise to fetch all cocktails.
    *
    * @return {Promise}
    */
 
   fetchAll: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('tag', params);
+    const filters = strapi.utils.models.convertParams('cocktail', params);
     // Select field to populate.
-    const populate = Tag.associations
+    const populate = Cocktail.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Tag
+    return Cocktail
       .find()
       .where(filters.where)
       .sort(filters.sort)
@@ -36,90 +36,90 @@ module.exports = {
   },
 
   /**
-   * Promise to fetch a/an tag.
+   * Promise to fetch a/an cocktail.
    *
    * @return {Promise}
    */
 
   fetch: (params) => {
     // Select field to populate.
-    const populate = Tag.associations
+    const populate = Cocktail.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    return Tag
-      .findOne(_.pick(params, _.keys(Tag.schema.paths)))
+    return Cocktail
+      .findOne(_.pick(params, _.keys(Cocktail.schema.paths)))
       .populate(populate);
   },
 
   /**
-   * Promise to count tags.
+   * Promise to count cocktails.
    *
    * @return {Promise}
    */
 
   count: (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('tag', params);
+    const filters = strapi.utils.models.convertParams('cocktail', params);
 
-    return Tag
+    return Cocktail
       .count()
       .where(filters.where);
   },
 
   /**
-   * Promise to add a/an tag.
+   * Promise to add a/an cocktail.
    *
    * @return {Promise}
    */
 
   add: async (values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Tag.associations.map(ast => ast.alias));
-    const data = _.omit(values, Tag.associations.map(ast => ast.alias));
+    const relations = _.pick(values, Cocktail.associations.map(ast => ast.alias));
+    const data = _.omit(values, Cocktail.associations.map(ast => ast.alias));
 
     // Create entry with no-relational data.
-    const entry = await Tag.create(data);
+    const entry = await Cocktail.create(data);
 
     // Create relational data and return the entry.
-    return Tag.updateRelations({ _id: entry.id, values: relations });
+    return Cocktail.updateRelations({ _id: entry.id, values: relations });
   },
 
   /**
-   * Promise to edit a/an tag.
+   * Promise to edit a/an cocktail.
    *
    * @return {Promise}
    */
 
   edit: async (params, values) => {
     // Extract values related to relational data.
-    const relations = _.pick(values, Tag.associations.map(a => a.alias));
-    const data = _.omit(values, Tag.associations.map(a => a.alias));
+    const relations = _.pick(values, Cocktail.associations.map(a => a.alias));
+    const data = _.omit(values, Cocktail.associations.map(a => a.alias));
 
     // Update entry with no-relational data.
-    const entry = await Tag.update(params, data, { multi: true });
+    const entry = await Cocktail.update(params, data, { multi: true });
 
     // Update relational data and return the entry.
-    return Tag.updateRelations(Object.assign(params, { values: relations }));
+    return Cocktail.updateRelations(Object.assign(params, { values: relations }));
   },
 
   /**
-   * Promise to remove a/an tag.
+   * Promise to remove a/an cocktail.
    *
    * @return {Promise}
    */
 
   remove: async params => {
     // Select field to populate.
-    const populate = Tag.associations
+    const populate = Cocktail.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
     // Note: To get the full response of Mongo, use the `remove()` method
     // or add spent the parameter `{ passRawResult: true }` as second argument.
-    const data = await Tag
+    const data = await Cocktail
       .findOneAndRemove(params, {})
       .populate(populate);
 
@@ -128,7 +128,7 @@ module.exports = {
     }
 
     await Promise.all(
-      Tag.associations.map(async association => {
+      Cocktail.associations.map(async association => {
         if (!association.via || !data._id) {
           return true;
         }
@@ -149,22 +149,22 @@ module.exports = {
   },
 
   /**
-   * Promise to search a/an tag.
+   * Promise to search a/an cocktail.
    *
    * @return {Promise}
    */
 
   search: async (params) => {
     // Convert `params` object to filters compatible with Mongo.
-    const filters = strapi.utils.models.convertParams('tag', params);
+    const filters = strapi.utils.models.convertParams('cocktail', params);
     // Select field to populate.
-    const populate = Tag.associations
+    const populate = Cocktail.associations
       .filter(ast => ast.autoPopulate !== false)
       .map(ast => ast.alias)
       .join(' ');
 
-    const $or = Object.keys(Tag.attributes).reduce((acc, curr) => {
-      switch (Tag.attributes[curr].type) {
+    const $or = Object.keys(Cocktail.attributes).reduce((acc, curr) => {
+      switch (Cocktail.attributes[curr].type) {
         case 'integer':
         case 'float':
         case 'decimal':
@@ -188,7 +188,7 @@ module.exports = {
       }
     }, []);
 
-    return Tag
+    return Cocktail
       .find({ $or })
       .sort(filters.sort)
       .skip(filters.start)

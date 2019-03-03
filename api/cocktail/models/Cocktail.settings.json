@@ -1,0 +1,47 @@
+{
+  "connection": "default",
+  "collectionName": "cocktail",
+  "info": {
+    "name": "cocktail",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "default": "",
+      "unique": true,
+      "type": "string",
+      "required": true
+    },
+    "glass": {
+      "default": "",
+      "type": "string"
+    },
+    "category": {
+      "default": "",
+      "type": "string"
+    },
+    "garnish": {
+      "default": "",
+      "type": "string"
+    },
+    "preparation": {
+      "default": "",
+      "type": "string"
+    },
+    "ingredients": {
+      "default": "",
+      "unique": true,
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}

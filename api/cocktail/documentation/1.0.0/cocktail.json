@@ -1,6 +1,6 @@
 {
   "paths": {
-    "/posts": {
+    "/cocktails": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -12,7 +12,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Post"
+                    "$ref": "#/components/schemas/Cocktail"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Post"
+          "Cocktail"
         ],
         "parameters": [
           {
@@ -175,7 +175,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Post"
+                  "$ref": "#/components/schemas/Cocktail"
                 }
               }
             }
@@ -213,7 +213,7 @@
         },
         "summary": "",
         "tags": [
-          "Post"
+          "Cocktail"
         ],
         "requestBody": {
           "description": "",
@@ -221,14 +221,14 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPost"
+                "$ref": "#/components/schemas/NewCocktail"
               }
             }
           }
         }
       }
     },
-    "/posts/count": {
+    "/cocktails/count": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -280,12 +280,12 @@
         },
         "summary": "",
         "tags": [
-          "Post"
+          "Cocktail"
         ],
         "parameters": []
       }
     },
-    "/posts/{_id}": {
+    "/cocktails/{_id}": {
       "get": {
         "deprecated": false,
         "description": "",
@@ -295,7 +295,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Post"
+                  "$ref": "#/components/schemas/Cocktail"
                 }
               }
             }
@@ -333,7 +333,7 @@
         },
         "summary": "",
         "tags": [
-          "Post"
+          "Cocktail"
         ],
         "parameters": [
           {
@@ -357,7 +357,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Post"
+                  "$ref": "#/components/schemas/Cocktail"
                 }
               }
             }
@@ -395,7 +395,7 @@
         },
         "summary": "",
         "tags": [
-          "Post"
+          "Cocktail"
         ],
         "requestBody": {
           "description": "",
@@ -403,7 +403,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPost"
+                "$ref": "#/components/schemas/NewCocktail"
               }
             }
           }
@@ -469,7 +469,7 @@
         },
         "summary": "",
         "tags": [
-          "Post"
+          "Cocktail"
         ],
         "parameters": [
           {
@@ -488,23 +488,41 @@
   },
   "components": {
     "schemas": {
-      "Post": {
+      "Cocktail": {
         "required": [
-          "id"
+          "id",
+          "name",
+          "ingredients"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "title": {
+          "name": {
             "type": "string",
             "default": ""
           },
-          "content": {
+          "glass": {
             "type": "string",
             "default": ""
           },
-          "cover": {
+          "category": {
+            "type": "string",
+            "default": ""
+          },
+          "garnish": {
+            "type": "string",
+            "default": ""
+          },
+          "preparation": {
+            "type": "string",
+            "default": ""
+          },
+          "ingredients": {
+            "type": "string",
+            "default": ""
+          },
+          "image": {
             "required": [
               "id",
               "name",
@@ -549,46 +567,38 @@
                 "type": "string"
               }
             }
-          },
-          "tags": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "posts": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
           }
         }
       },
-      "NewPost": {
+      "NewCocktail": {
+        "required": [
+          "name",
+          "ingredients"
+        ],
         "properties": {
-          "title": {
+          "name": {
             "type": "string",
             "default": ""
           },
-          "content": {
+          "glass": {
             "type": "string",
             "default": ""
           },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "category": {
+            "type": "string",
+            "default": ""
+          },
+          "garnish": {
+            "type": "string",
+            "default": ""
+          },
+          "preparation": {
+            "type": "string",
+            "default": ""
+          },
+          "ingredients": {
+            "type": "string",
+            "default": ""
           }
         }
       }
@@ -596,7 +606,7 @@
   },
   "tags": [
     {
-      "name": "Post"
+      "name": "Cocktail"
     }
   ]
 }

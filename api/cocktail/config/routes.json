@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/tags",
-      "handler": "Tag.find",
+      "path": "/cocktails",
+      "handler": "Cocktail.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/tags/count",
-      "handler": "Tag.count",
+      "path": "/cocktails/count",
+      "handler": "Cocktail.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/tags/:_id",
-      "handler": "Tag.findOne",
+      "path": "/cocktails/:_id",
+      "handler": "Cocktail.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/tags",
-      "handler": "Tag.create",
+      "path": "/cocktails",
+      "handler": "Cocktail.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/tags/:_id",
-      "handler": "Tag.update",
+      "path": "/cocktails/:_id",
+      "handler": "Cocktail.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/tags/:_id",
-      "handler": "Tag.destroy",
+      "path": "/cocktails/:_id",
+      "handler": "Cocktail.destroy",
       "config": {
         "policies": []
       }
